@@ -1,0 +1,62 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.menu-lateral {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    height: 100vh;
+}
+
+.menu-lateral h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.menu-lateral ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-lateral li {
+    margin: 15px 0;
+}
+
+.menu-lateral a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+.conteudo {
+    flex: 1;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+#paginacao {
+    margin-top: 20px;
+    text-align: center;
+}
