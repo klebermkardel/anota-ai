@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Débitos</title>
+    <link rel="stylesheet" href="styles/dashboard.css"> <!-- Arquivo de CSS externo -->
+</head>
+<body>
+    <div class="container">
+        <!-- Menu Lateral -->
+        <aside class="menu-lateral">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="#" id="listar-debitos">Listar Débitos</a></li>
+                <li><a href="#" id="cadastrar-cliente">Cadastrar Cliente</a></li>
+                <li><a href="#" id="editar-cliente">Editar Cliente</a></li>
+                <!-- Adicione outras opções conforme necessário -->
+            </ul>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="conteudo">
+            <h1>Débitos Recentes</h1>
+            <table id="tabela-debitos">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Produto</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dados serão inseridos dinamicamente via JavaScript -->
+                </tbody>
+            </table>
+            <div id="paginacao">
+                <!-- Botões de navegação serão gerados aqui -->
+            </div>
+        </main>
+    </div>
+
+    <script src="scripts/dashboard.js"></script> <!-- Arquivo JS externo -->
+</body>
+</html>
