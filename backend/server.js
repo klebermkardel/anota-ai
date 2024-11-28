@@ -98,6 +98,28 @@ app.post('/login-admin', (req, res) => {
     });
 });
 
+// Rota para exibir histórico das últimas transações
+app.get('/debitos', (req, res) => {
+    const pagina = parseInt(req.query.page) || 1;
+    const itensPorPagina = 10;
+    const offset = (pagina - 1) * itensPorPagina;
+
+    const countQuery = 'SELECT COUNT(*) AS total FROM debitos';  // Ajuste o nome da tabela
+    db.query(countQuery, (err, countResult) => {
+        if (err) return res.status(500).send({ error: 'Erro no servidor.' });
+
+        const totalItens = countResult[0].total;
+        const totalPaginas = Math.ceil(totalItens / itensPorPagina);
+
+        const query = 'SELECT * FROM debitos ORDER BY data DESC LIMIT ?, ?';
+        db.query(query, [offset, itensPorPagina], (err, results) => {
+            if (err) return res.status(500).send({ error: 'Erro no servidor.' });
+            res.status(200).send({ debitos: results, totalPaginas });
+        });
+    });
+});
+
+
 
 
 // 7. Início do servidor
