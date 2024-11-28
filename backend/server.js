@@ -71,6 +71,35 @@ app.post('/cadastro-admin', (req, res) => {
     });
 });
 
+// Rota de login de administrador
+app.post('/login-admin', (req, res) => {
+    const { username, password } = req.body;
+
+    console.log('Dados de login recebidos:', { username, password });  // Adicione este log
+
+    // Validação básica dos dados
+    if (!username || !password) {
+        return res.status(400).send({ error: 'Todos os campos são obrigatórios!' });
+    }
+
+    // Consulta ao banco para verificar o administrador
+    const query = 'SELECT * FROM admins WHERE username = ? AND password = ?';
+    db.query(query, [username, password], (err, results) => {
+        if (err) {
+            console.error('Erro ao verificar login:', err);  // Verifique se o erro está aqui
+            return res.status(500).send({ error: 'Erro no servidor.' });
+        }
+
+        if (results.length > 0) {
+            res.status(200).send({ message: 'Login bem-sucedido!' });
+        } else {
+            res.status(401).send({ error: 'Usuário ou senha incorretos!' });
+        }
+    });
+});
+
+
+
 // 7. Início do servidor
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
