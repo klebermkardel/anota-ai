@@ -1,0 +1,27 @@
+# Ignorar arquivos de configuração sensíveis
+/config/config.php
+
+# Ignorar pastas e arquivos de ambiente de desenvolvimento
+/vendor/
+/.env
+.env.local
+.env.development
+.env.production
+
+# Ignorar logs
+*.log
+
+# Ignorar arquivos de cache e temporários
+/tmp/
+*.tmp
+*.bak
+*.swp
+
+# Ignorar arquivos específicos do sistema operacional ou IDEs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Ignorar arquivos de upload (se houver)
+/public/uploads/
