@@ -1,0 +1,21 @@
+<?php
+    /**
+     * Arquivo de Configuração do Banco de Dados
+     * anota_ai/config/config.php
+     * 
+     * Este arquivo contém as credenciais para a conexão com o banco de dados.
+     * É importante que este arquivo não seja acessível diretamente via navegador
+    */
+
+    // Define as constantes para as credenciais do banco de dados
+    define('DB_HOST', 'localhost'); // Host do banco de dados (geralmente 'localhost' para ambiente local)
+    define('DB_USER', 'root'); // Nome do usuário do banco de dados (padrão 'root' para XAMPP)
+    define('DB_PASS', 'SUA_SENHA_DO_BANCO_DE_DADOS_AQUI'); // Senha do Banco de Dados
+    define('DB_NAME', 'anota_ai'); // Nome do Banco de Dados
+
+    // Opcional: Define o conjunto de caracteres para a conexão
+    define('DB_CHARSET', 'utf8mb4');
+
+    // Opcional: Define o modo de relatório de erros para o MySQLi
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+?>
