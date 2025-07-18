@@ -1,0 +1,19 @@
+# Ignorar arquivos de configuração de ambiente (incluindo database.php se tiver credenciais diretas)
+app/config/database.php
+
+# Ignorar logs e temporários
+*.log
+*.tmp
+temp/
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# Ignorar dependências (se você usar Composer ou npm no futuro)
+vendor/
+node_modules/
+
+# Ignorar IDE/Editor specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
