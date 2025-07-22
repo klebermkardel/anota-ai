@@ -207,8 +207,8 @@ if (isset($_GET['success'])) {
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="edit_sales.php?id=<?php echo htmlspecialchars($venda['id']); ?>" class="btn btn-sm btn-outline-primary btn-action" title="Editar Venda"><i class="bi bi-pencil"></i>Editar</a>
-                                        <a href="delete_sales.php?id=<?php echo htmlspecialchars($venda['id']); ?>" class="btn btn-sm btn-outline-danger btn-action" title="Excluir Venda" onclick="return confirm('Tem certeza que deseja excluir esta venda? Esta ação também removerá todos os pagamentos associados.');"><i class="bi bi-trash"></i>Excluir</a>
+                                        <a href="edit_sales.php?id=<?php echo htmlspecialchars($venda['id']); ?>" class="btn btn-sm btn-outline-primary btn-action" title="Editar Venda"><i class="bi bi-pencil"></i> Editar</a>
+                                        <a href="delete_sales.php?id=<?php echo htmlspecialchars($venda['id']); ?>" class="btn btn-sm btn-outline-danger btn-action" title="Excluir Venda" onclick="return confirm('Tem certeza que deseja excluir esta venda? Esta ação também removerá todos os pagamentos associados.');"><i class="bi bi-trash"></i> Excluir</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
