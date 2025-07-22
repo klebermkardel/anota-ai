@@ -91,18 +91,66 @@ if (isset($_GET['success'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        body { background-color: #f8f9fa; }
+        body { 
+            background-color: #f8f9fa;
+            padding-top: 70px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .nav-link {
+            font-weight: 500;
+        }
+
         .form-card {
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             border: none;
         }
-        .form-label { font-weight: 500; color: #495057; }
-        .form-control.rounded-pill { border-radius: 50rem !important; }
+
+        .form-label { 
+            font-weight: 500; 
+            color: #495057; 
+        }
+        
+        .form-control.rounded-pill {
+            border-radius: 50rem !important; 
+        }
     </style>
 </head>
 <body>
     <div class="container mt-5 mb-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../dashboard.php">Anota Aí - Admin</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../dashboard.php">Dashboard</a> </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./create.php">Cadastrar Cliente</a> </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./list_clients.php">Listar Clientes</a> </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../sales/create_sales.php">Gerenciar Vendas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../sales/list_sales.php">Histórico de Vendas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../payments/create_payments.php">Gerenciar Pagamentos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-danger btn-sm ms-lg-3 px-3 rounded-pill" href="../../logout.php">Sair</a> </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="card form-card">
