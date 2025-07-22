@@ -26,23 +26,35 @@ if (isset($_GET['success'])) {
     <style>
         body {
             background-color: #f8f9fa;
+            padding-top: 70px;
         }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+        }
+
         .form-card {
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             border: none;
         }
+
         .form-label {
             font-weight: 500;
             color: #495057;
         }
+
         .form-control.rounded-pill {
             border-radius: 50rem !important; /* Makes it truly pill-shaped */
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top">
         <div class="container">
             <a class="navbar-brand" href="../dashboard.php">Anota Aí - Admin</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -50,9 +62,9 @@ if (isset($_GET['success'])) {
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../dashboard.php">Dashboard</a> </li>
+                        <a class="nav-link" aria-current="page" href="../dashboard.php">Dashboard</a> </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./create.php">Cadastrar Cliente</a> </li>
+                        <a class="nav-link active" href="./create.php">Cadastrar Cliente</a> </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./list_clients.php">Listar Clientes</a> </li>
                     <li class="nav-item">

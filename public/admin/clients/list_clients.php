@@ -86,28 +86,45 @@ if (isset($_GET['success'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        body { background-color: #f8f9fa; }
+        body { 
+            background-color: #f8f9fa;
+            padding-top: 70px;
+        }
+
         .table-container {
             background-color: #ffffff;
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .nav-link {
+            font-weight: 500;
+        }
+
         .table thead th {
             background-color: #28a745; /* Cor verde do cabeçalho */
             color: white;
             vertical-align: middle;
         }
+
         .table tbody tr:hover {
             background-color: #e2f0d9; /* Um verde mais claro ao passar o mouse */
         }
+        
         .btn-action {
             margin-right: 5px;
         }
+
         .saldo-devedor-positivo {
             color: #dc3545; /* Vermelho para saldo devedor */
             font-weight: bold;
         }
+
         .saldo-devedor-zero {
             color: #28a745; /* Verde para saldo zero ou positivo */
             font-weight: bold;
@@ -115,7 +132,7 @@ if (isset($_GET['success'])) {
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top">
         <div class="container">
             <a class="navbar-brand" href="../dashboard.php">Anota Aí - Admin</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -123,11 +140,11 @@ if (isset($_GET['success'])) {
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../dashboard.php">Dashboard</a> </li>
+                        <a class="nav-link" aria-current="page" href="../dashboard.php">Dashboard</a> </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./create.php">Cadastrar Cliente</a> </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./list_clients.php">Listar Clientes</a> </li>
+                        <a class="nav-link active" href="./list_clients.php">Listar Clientes</a> </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../sales/create_sales.php">Gerenciar Vendas</a>
                     </li>

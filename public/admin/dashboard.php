@@ -21,27 +21,32 @@ if (!isset($_SESSION['user_id']) || $_SESSION['nivel_acesso'] !== 'admin') {
     <style>
         body {
             background-color: #f8f9fa;
+            padding-top: 70px;
         }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .nav-link {
+            font-weight: 500;
+        }
+
         .main-card {
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             border: none;
         }
-        .navbar-brand {
-            font-weight: bold;
-        }
-        .nav-link {
-            font-weight: 500;
-        }
+
         .list-group-item-action:hover {
             background-color: #e9ecef; /* Light gray on hover */
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="./dashboard.php">Anota Aí - Admin</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="./dashboard.php">Anota Aí - Admin</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">

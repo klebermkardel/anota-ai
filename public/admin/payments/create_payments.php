@@ -83,13 +83,25 @@ if (isset($_GET['success'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        body { background-color: #f8f9fa; }
+        body { 
+            background-color: #f8f9fa;
+            padding-top: 70px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .nav-link {
+            font-weight: 500;
+        }
+
         .form-container {
             background-color: #ffffff;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
+        
         .header-bg {
             background-color: #28a745; /* Verde */
             color: white;
@@ -98,13 +110,14 @@ if (isset($_GET['success'])) {
             margin: -30px -30px 30px -30px; /* Ajusta para preencher o topo do container */
             text-align: center;
         }
+
         .input-group-text {
             background-color: #e9ecef;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top">
         <div class="container">
             <a class="navbar-brand" href="../dashboard.php">Anota Aí - Admin</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,7 +141,7 @@ if (isset($_GET['success'])) {
                         <a class="nav-link" href="../sales/list_sales.php">Histórico de Vendas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Gerenciar Pagamentos</a>
+                        <a class="nav-link active" href="#">Gerenciar Pagamentos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-danger btn-sm ms-lg-3 px-3 rounded-pill" href="../../logout.php">Sair</a>
