@@ -59,7 +59,7 @@ if (isset($_GET['success'])) {
                         <a class="nav-link" href="../sales/create_sales.php">Gerenciar Vendas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./sales/list_sales.php">Histórico de Vendas</a>
+                        <a class="nav-link" href="../sales/list_sales.php">Histórico de Vendas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../payments/create_payments.php">Gerenciar Pagamentos</a>

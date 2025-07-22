@@ -84,19 +84,26 @@ if (isset($_GET['success'])) {
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../dashboard.php">Dashboard</a> </li>
+                        <a class="nav-link" href="../dashboard.php">Dashboard</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../clients/create.php">Cadastrar Cliente</a> </li>
+                        <a class="nav-link" href="../clients/create.php">Cadastrar Cliente</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../clients/list_clients.php">Listar Clientes</a> </li>
+                        <a class="nav-link" href="../clients/list_clients.php">Listar Clientes</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./create_sales.php">Registrar Venda</a> </li>
+                        <a class="nav-link active" aria-current="page" href="./create_sales.php">Gerenciar Vendas</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Gerenciar Vendas</a> </li>
+                        <a class="nav-link" href="./list_sales.php">Histórico de Vendas</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Gerenciar Pagamentos</a> </li>
+                        <a class="nav-link" href="../payments/create_payments.php">Gerenciar Pagamentos</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-danger btn-sm ms-lg-3 px-3 rounded-pill" href="../../logout.php">Sair</a> </li>
+                        <a class="nav-link btn btn-danger btn-sm ms-lg-3 px-3 rounded-pill" href="../../logout.php">Sair</a>
+                    </li>
                 </ul>
             </div>
         </div>

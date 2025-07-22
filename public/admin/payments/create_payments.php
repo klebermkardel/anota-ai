@@ -122,13 +122,10 @@ if (isset($_GET['success'])) {
                         <a class="nav-link" href="../clients/list_clients.php">Listar Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../sales/create_sales.php">Registrar Venda</a>
+                        <a class="nav-link" href="../sales/create_sales.php">Gerenciar Vendas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../sales/list_sales.php">Gerenciar Vendas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./create_payment.php">Registrar Pagamento</a>
+                        <a class="nav-link" href="../sales/list_sales.php">Histórico de Vendas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Gerenciar Pagamentos</a>

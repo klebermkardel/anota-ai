@@ -117,35 +117,28 @@ if (isset($_GET['success'])) {
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="../dashboard.php">Anota Aí - Admin</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="../dashboard.php">Anota Aí - Admin</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../dashboard.php">Dashboard</a>
+                        <a class="nav-link active" aria-current="page" href="../dashboard.php">Dashboard</a> </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./create.php">Cadastrar Cliente</a> </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./list_clients.php">Listar Clientes</a> </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../sales/create_sales.php">Gerenciar Vendas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./create.php">Cadastrar Cliente</a>
+                        <a class="nav-link" href="../sales/list_sales.php">Histórico de Vendas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./list_clients.php">Listar Clientes</a>
+                        <a class="nav-link" href="../payments/create_payments.php">Gerenciar Pagamentos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../sales/create_sales.php">Registrar Venda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../sales/list_sales.php">Gerenciar Vendas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../payments/create_payment.php">Registrar Pagamento</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Gerenciar Pagamentos</a> </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-danger btn-sm ms-lg-3 px-3 rounded-pill" href="../../logout.php">Sair</a>
-                    </li>
+                        <a class="nav-link btn btn-danger btn-sm ms-lg-3 px-3 rounded-pill" href="../../logout.php">Sair</a> </li>
                 </ul>
             </div>
         </div>
