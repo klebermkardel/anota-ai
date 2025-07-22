@@ -11,7 +11,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['nivel_acesso'] !== 'admin') {
 }
 
 // 2. Verifica se a requisição é GET e se um ID de cliente foi passado
-// A exclusão geralmente é acionada por um link GET, com confirmação via JS no frontend.
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' || !isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header('Location: list_clients.php?error=Requisição inválida ou ID do cliente não fornecido para exclusão.');
     exit();
@@ -29,11 +28,40 @@ try {
         $conn->set_charset(DB_CHARSET);
     }
 
-    // Inicia uma transação (boa prática mesmo para DELETE único, por segurança)
+    // Inicia uma transação para garantir que ambas as exclusões (usuário e cliente) sejam atômicas
     $conn->begin_transaction();
 
-    // 3. Deleta o cliente da tabela 'clientes'
-    // As chaves estrangeiras (ON DELETE CASCADE, ON DELETE SET NULL) farão o resto
+    // PRIMEIRA ETAPA: Deletar o usuário associado (se existir)
+    // Buscamos o ID do usuário para o cliente_id
+    $sql_get_user_id = "SELECT id FROM usuarios WHERE cliente_id = ?";
+    $stmt_get_user_id = $conn->prepare($sql_get_user_id);
+    if ($stmt_get_user_id === false) {
+        throw new Exception("Erro ao preparar busca de usuário: " . $conn->error);
+    }
+    $stmt_get_user_id->bind_param('i', $cliente_id);
+    $stmt_get_user_id->execute();
+    $result_user_id = $stmt_get_user_id->get_result();
+
+    if ($result_user_id->num_rows > 0) {
+        $user_data = $result_user_id->fetch_assoc();
+        $user_id_to_delete = $user_data['id'];
+
+        $sql_delete_user = "DELETE FROM usuarios WHERE id = ?";
+        $stmt_delete_user = $conn->prepare($sql_delete_user);
+        if ($stmt_delete_user === false) {
+            throw new Exception("Erro ao preparar exclusão de usuário: " . $conn->error);
+        }
+        $stmt_delete_user->bind_param('i', $user_id_to_delete);
+        if (!$stmt_delete_user->execute()) {
+            throw new Exception("Erro ao excluir usuário associado: " . $stmt_delete_user->error);
+        }
+        $stmt_delete_user->close();
+    }
+    $stmt_get_user_id->close();
+
+
+    // SEGUNDA ETAPA: Deletar o cliente
+    // As chaves estrangeiras em 'vendas' e 'pagamentos' (ON DELETE CASCADE) farão o resto
     $sql_delete_cliente = "DELETE FROM clientes WHERE id = ?";
     $stmt_delete_cliente = $conn->prepare($sql_delete_cliente);
 
@@ -49,24 +77,22 @@ try {
 
     // Verifica se alguma linha foi afetada (se o cliente realmente existia)
     if ($stmt_delete_cliente->affected_rows > 0) {
-        $conn->commit(); // Commita a transação se a exclusão foi bem-sucedida
-        header('Location: list_clients.php?success=Cliente excluído com sucesso. Vendas e pagamentos associados foram removidos.');
+        $conn->commit(); // Commita a transação se ambas as exclusões foram bem-sucedidas
+        header('Location: list_clients.php?success=Cliente e conta de usuário associada excluídos com sucesso. Vendas e pagamentos do cliente também foram removidos.');
         exit();
     } else {
-        $conn->rollback(); // Reverte se nenhuma linha foi afetada (cliente não encontrado)
+        $conn->rollback(); // Reverte se nenhuma linha de cliente foi afetada (cliente não encontrado)
         header('Location: list_clients.php?error=Cliente com ID ' . $cliente_id . ' não encontrado para exclusão.');
         exit();
     }
-
-    $stmt_delete_cliente->close();
 
 } catch (Exception $e) {
     // Em caso de qualquer erro, reverte a transação
     if ($conn) {
         $conn->rollback();
     }
-    error_log('Erro na exclusão de cliente: ' . $e->getMessage()); // Log para depuração
-    header('Location: list_clients.php?error=Ocorreu um erro inesperado ao excluir o cliente: ' . urlencode($e->getMessage()));
+    error_log('Erro na exclusão de cliente e usuário: ' . $e->getMessage()); // Log para depuração
+    header('Location: list_clients.php?error=Ocorreu um erro inesperado ao excluir o cliente e seu usuário: ' . urlencode($e->getMessage()));
     exit();
 } finally {
     // Garante que a conexão seja fechada
