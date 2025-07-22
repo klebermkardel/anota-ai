@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $conn = null;
 
 try {
-    // Conexão com o banco de dados    
+    // Conexão com o banco de dados    
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     if ($conn->connect_error) {
         throw new Exception("Erro de conexão com o banco de dados: " . $conn->connect_error);
@@ -45,7 +45,7 @@ try {
     // Validação básica dos dados do cliente (ex: nome é obrigatório)
     if (empty($nome) || empty($telefone) || empty($email) || empty($empresa) || empty($setor)) {
         $conn->rollback(); // Reverte a transação
-        header('Location: create.php?error=Todos os campos (exceto observações) são obrigatórios.');
+        header('Location: create.php?error=' . urlencode('Todos os campos (exceto observações) são obrigatórios.')); // Usar urlencode
         exit();
     }
 
@@ -61,7 +61,7 @@ try {
     $stmt_cliente->bind_param('ssssss', $nome, $telefone, $email, $empresa, $setor, $observacoes);
 
     if (!$stmt_cliente->execute()) {
-        throw new Exception("Erro ao insetir cliente: " . $stmt_cliente->error);
+        throw new Exception("Erro ao inserir cliente: " . $stmt_cliente->error); // Corrigido "insetir" para "inserir"
     }
 
     $cliente_id = $conn->insert_id; // Obtém o ID do cliente recém-inserido
@@ -80,13 +80,13 @@ try {
         // Validação dos dados do usuário
         if (empty($username) || empty($password) || empty($confirm_password)) {
             $conn->rollback(); // Reverte a transação
-            header('Location: create.php?error=Todos os campos devem ser preenchidos.');
+            header('Location: create.php?error=' . urlencode('Todos os campos (usuário, senha, confirmar senha) são obrigatórios.')); // Usar urlencode
             exit();
         }
 
         if ($password !== $confirm_password) {
             $conn->rollback(); // Reverte a transação
-            header('Location: create.php?error="As senhas não coincidem.');
+            header('Location: create.php?error=' . urlencode('As senhas não coincidem.')); // Usar urlencode
             exit();
         }
 
@@ -108,9 +108,10 @@ try {
 
         if (!$stmt_usuario->execute()) {
             // Verifica se o erro é por username duplicado
-            if ($conn->errno == 1062) { // 1062 é o codigo de erro para chave duplicada (UNIQUE constraint)
+            if ($conn->errno == 1062) { 
+                // 1062 é o codigo de erro para chave duplicada (UNIQUE constraint)
                 $conn->rollback();
-                header('Location: create.php?error=Nome de usuário já existe. Por favor, escolha outro.');
+                header('Location: create.php?error=' . urlencode('Nome de usuário já existe. Por favor, escolha outro.')); // Usar urlencode
                 exit();
             }
             throw new Exception("Erro ao inserir usuário: " . $stmt_usuario->error);
@@ -121,21 +122,23 @@ try {
 
     // Se tudo deu certo, commita a transação
     $conn->commit();
-    header('Location: create.php?sucess=Cliente e conta de usuário cadastrados com sucesso');
+    // Correção: "sucess" para "success" e uso de urlencode
+    header('Location: create.php?success=' . urlencode('Cliente e conta de usuário (se criada) cadastrados com sucesso! ID: ' . $cliente_id));
     exit();
 } catch (Exception $e) {
     // Em caso de qualquer erro, reverte a transação
     if ($conn) {
-        $conn->rollback();
+    $conn->rollback();
     }
     // Loga o erro para depuração (em produção, não mostre ao usuário)
     error_log('Erro no cadastro de cliente/usuário: ' . $e->getMessage());
-    header('Location: create.php?error=Ocorreu um erro inesperado: ' . $e->getMessage());
+    // Correção: Uso de urlencode para a mensagem de erro
+    header('Location: create.php?error=' . urlencode('Ocorreu um erro inesperado: ' . $e->getMessage()));
     exit();
 } finally {
     // Garante que a conexão seja fechada
     if ($conn) {
-        $conn->close();
+    $conn->close();
     }
 }
 
