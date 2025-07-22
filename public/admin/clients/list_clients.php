@@ -180,7 +180,6 @@ if (isset($_GET['success'])) {
                     <table class="table table-hover table-striped align-middle">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nome</th>
                                 <th>Telefone</th>
                                 <th>Email</th>
@@ -193,7 +192,6 @@ if (isset($_GET['success'])) {
                         <tbody>
                             <?php foreach ($clientes as $cliente): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($cliente['id']); ?></td>
                                     <td><?php echo htmlspecialchars($cliente['nome']); ?></td>
                                     <td><?php echo htmlspecialchars($cliente['telefone']); ?></td>
                                     <td><?php echo htmlspecialchars($cliente['email']); ?></td>
