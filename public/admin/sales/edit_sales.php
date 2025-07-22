@@ -91,14 +91,26 @@ if (isset($_GET['success'])) {
             background-color: #f8f9fa;
             padding-top: 70px; /* Para compensar o navbar fixo */
         }
-        .navbar-brand { font-weight: bold; }
-        .nav-link { font-weight: 500; }
+
+        .navbar-brand { 
+            font-weight: bold; 
+        }
+
+        .nav-link { 
+            font-weight: 500; 
+        }
+
         .form-card {
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             border: none;
         }
-        .form-label { font-weight: 500; color: #495057; }
+
+        .form-label { 
+            font-weight: 500; 
+            color: #495057; 
+        }
+
         .form-control.rounded-pill, .form-select.rounded-pill { border-radius: 50rem !important; }
     </style>
 </head>
@@ -127,10 +139,7 @@ if (isset($_GET['success'])) {
                         <a class="nav-link active" aria-current="page" href="./list_sales.php">Histórico de Vendas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../payments/create_payment.php">Registrar Pagamento</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Gerenciar Pagamentos</a>
+                        <a class="nav-link" href="../payments/create_payments.php">Gerenciar Pagamentos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-danger btn-sm ms-lg-3 px-3 rounded-pill" href="../../logout.php">Sair</a>
