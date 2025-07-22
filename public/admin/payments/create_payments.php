@@ -209,8 +209,8 @@ if (isset($_GET['success'])) {
                         <textarea class="form-control" id="observacoes" name="observacoes" rows="3" placeholder="Ex: Pagamento via PIX, Referente à entrada..."></textarea>
                     </div>
 
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-success btn-lg rounded-pill"><i class="bi bi-cash-coin me-2"></i> Registrar Pagamento</button>
+                    <div class="d-flex justify-content-between mt-5">
+                        <button type="submit" class="btn btn-success btn-lg rounded-pill px-4"><i class="bi bi-cash-coin me-2"></i> Registrar Pagamento</button>
                     </div>
                 </form>
             <?php endif; ?>
