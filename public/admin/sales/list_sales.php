@@ -189,7 +189,7 @@ if (isset($_GET['success'])) {
                                 <th>Valor Total</th>
                                 <th>Descrição</th>
                                 <th>Status</th>
-                                <th>Ações</th>
+                                <th class="text-center">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -206,9 +206,9 @@ if (isset($_GET['success'])) {
                                             <?php echo ucfirst(htmlspecialchars($venda['status_venda'])); ?>
                                         </span>
                                     </td>
-                                    <td>
-                                        <a href="edit_sales.php?id=<?php echo htmlspecialchars($venda['id']); ?>" class="btn btn-sm btn-outline-primary btn-action" title="Editar Venda"><i class="bi bi-pencil-square"></i></a>
-                                        <a href="delete_sales.php?id=<?php echo htmlspecialchars($venda['id']); ?>" class="btn btn-sm btn-outline-danger btn-action" title="Excluir Venda" onclick="return confirm('Tem certeza que deseja excluir esta venda? Esta ação também removerá todos os pagamentos associados.');"><i class="bi bi-trash"></i></a>
+                                    <td class="text-center">
+                                        <a href="edit_sales.php?id=<?php echo htmlspecialchars($venda['id']); ?>" class="btn btn-sm btn-outline-primary btn-action" title="Editar Venda"><i class="bi bi-pencil"></i>Editar</a>
+                                        <a href="delete_sales.php?id=<?php echo htmlspecialchars($venda['id']); ?>" class="btn btn-sm btn-outline-danger btn-action" title="Excluir Venda" onclick="return confirm('Tem certeza que deseja excluir esta venda? Esta ação também removerá todos os pagamentos associados.');"><i class="bi bi-trash"></i>Excluir</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
