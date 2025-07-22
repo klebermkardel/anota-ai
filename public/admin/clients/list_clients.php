@@ -212,7 +212,7 @@ if (isset($_GET['success'])) {
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="edit.php?id=<?php echo htmlspecialchars($cliente['id']); ?>" class="btn btn-sm btn-outline-primary btn-action" title="Editar"><i class="bi bi-pencil"></i> Editar</a>
+                                        <a href="edit_clients.php?id=<?php echo htmlspecialchars($cliente['id']); ?>" class="btn btn-sm btn-outline-primary btn-action" title="Editar"><i class="bi bi-pencil"></i> Editar</a>
                                         <a href="delete_clients.php?id=<?php echo htmlspecialchars($cliente['id']); ?>" class="btn btn-sm btn-outline-danger btn-action" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este cliente e todas as suas vendas e pagamentos associados? Esta ação é irreversível!');"><i class="bi bi-trash"></i> Excluir</a>
                                     </td>
                                 </tr>
