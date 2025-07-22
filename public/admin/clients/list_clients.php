@@ -22,8 +22,8 @@ try {
         $conn->set_charset(DB_CHARSET);
     }
 
-    // 2. Consulta SQL para buscar clientes e calcular o saldo devedor TOTAL
-    // Saldo devedor = (Soma de valor_total de TODAS as vendas do cliente) - (Soma de valor_pago de TODOS os pagamentos do cliente)
+    // 2. Consulta SQL CORRIGIDA para buscar clientes e calcular o saldo devedor TOTAL
+    // Usamos sub-consultas para somar vendas e pagamentos separadamente, evitando a multiplicação de linhas.
     $sql_clientes = "
         SELECT
             c.id,
@@ -33,16 +33,20 @@ try {
             c.empresa,
             c.setor,
             c.observacoes,
-            COALESCE(SUM(v.valor_total), 0) AS total_devido,
-            COALESCE(SUM(p.valor_pago), 0) AS total_pago
+            COALESCE(SUM_VENDAS.total_devido, 0) AS total_devido,
+            COALESCE(SUM_PAGAMENTOS.total_pago, 0) AS total_pago
         FROM
             clientes c
-        LEFT JOIN
-            vendas v ON c.id = v.cliente_id
-        LEFT JOIN
-            pagamentos p ON c.id = p.cliente_id -- Join pagamentos diretamente com clientes
-        GROUP BY
-            c.id, c.nome, c.telefone, c.email, c.empresa, c.setor, c.observacoes
+        LEFT JOIN (
+            SELECT cliente_id, SUM(valor_total) AS total_devido
+            FROM vendas
+            GROUP BY cliente_id
+        ) AS SUM_VENDAS ON c.id = SUM_VENDAS.cliente_id
+        LEFT JOIN (
+            SELECT cliente_id, SUM(valor_pago) AS total_pago
+            FROM pagamentos
+            GROUP BY cliente_id
+        ) AS SUM_PAGAMENTOS ON c.id = SUM_PAGAMENTOS.cliente_id
         ORDER BY
             c.nome ASC
     ";
@@ -134,19 +138,23 @@ if (isset($_GET['success'])) {
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="../dashboard.php">Anota Aí - Admin</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="../dashboard.php">Anota Aí - Admin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="../dashboard.php">Dashboard</a> </li>
+                        <a class="nav-link" href="../dashboard.php">Dashboard</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./create.php">Cadastrar Cliente</a> </li>
+                        <a class="nav-link" href="./create.php">Cadastrar Cliente</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="./list_clients.php">Listar Clientes</a> </li>
+                        <a class="nav-link active" aria-current="page" href="./list_clients.php">Listar Clientes</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../sales/create_sales.php">Gerenciar Vendas</a>
+                        <a class="nav-link" href="../sales/create_sales.php">Registrar Venda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../sales/list_sales.php">Histórico de Vendas</a>
@@ -155,7 +163,8 @@ if (isset($_GET['success'])) {
                         <a class="nav-link" href="../payments/create_payments.php">Gerenciar Pagamentos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-danger btn-sm ms-lg-3 px-3 rounded-pill" href="../../logout.php">Sair</a> </li>
+                        <a class="nav-link btn btn-danger btn-sm ms-lg-3 px-3 rounded-pill" href="../../logout.php">Sair</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -203,7 +212,7 @@ if (isset($_GET['success'])) {
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="edit_clients.php?id=<?php echo htmlspecialchars($cliente['id']); ?>" class="btn btn-sm btn-outline-primary btn-action" title="Editar"><i class="bi bi-pencil"></i> Editar</a>
+                                        <a href="edit.php?id=<?php echo htmlspecialchars($cliente['id']); ?>" class="btn btn-sm btn-outline-primary btn-action" title="Editar"><i class="bi bi-pencil"></i> Editar</a>
                                         <a href="delete_clients.php?id=<?php echo htmlspecialchars($cliente['id']); ?>" class="btn btn-sm btn-outline-danger btn-action" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este cliente e todas as suas vendas e pagamentos associados? Esta ação é irreversível!');"><i class="bi bi-trash"></i> Excluir</a>
                                     </td>
                                 </tr>

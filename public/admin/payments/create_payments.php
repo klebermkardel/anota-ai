@@ -22,23 +22,34 @@ try {
         $conn->set_charset(DB_CHARSET);
     }
 
-    // Consulta SQL para buscar clientes e calcular o saldo devedor total de cada um
-    // Saldo devedor = Soma de valor_total de TODAS as vendas - Soma de valor_pago de TODOS os pagamentos
+    // Consulta SQL CORRIGIDA para buscar clientes e calcular o saldo devedor total de cada um
+    // Usamos sub-consultas para somar vendas e pagamentos separadamente, evitando a multiplicação de linhas.
     $sql_clientes_com_saldo = "
         SELECT
             c.id,
             c.nome,
-            COALESCE(SUM(v.valor_total), 0) AS total_vendas,
-            COALESCE(SUM(p.valor_pago), 0) AS total_pagamentos,
-            (COALESCE(SUM(v.valor_total), 0) - COALESCE(SUM(p.valor_pago), 0)) AS saldo_devedor_cliente
+            -- Calculamos o total de vendas usando uma subconsulta
+            COALESCE(SUM_VENDAS.total_devido, 0) AS total_vendas,
+            -- Calculamos o total de pagamentos usando uma subconsulta
+            COALESCE(SUM_PAGAMENTOS.total_pago, 0) AS total_pagamentos,
+            -- Calculamos o saldo devedor final
+            (COALESCE(SUM_VENDAS.total_devido, 0) - COALESCE(SUM_PAGAMENTOS.total_pago, 0)) AS saldo_devedor_cliente
         FROM
             clientes c
-        LEFT JOIN
-            vendas v ON c.id = v.cliente_id
-        LEFT JOIN
-            pagamentos p ON c.id = p.cliente_id -- Assumindo que pagamentos também podem ser vinculados diretamente ao cliente
-        GROUP BY
-            c.id, c.nome
+        LEFT JOIN (
+            SELECT cliente_id, SUM(valor_total) AS total_devido
+            FROM vendas
+            GROUP BY cliente_id
+        ) AS SUM_VENDAS ON c.id = SUM_VENDAS.cliente_id
+        LEFT JOIN (
+            SELECT cliente_id, SUM(valor_pago) AS total_pago
+            FROM pagamentos
+            GROUP BY cliente_id
+        ) AS SUM_PAGAMENTOS ON c.id = SUM_PAGAMENTOS.cliente_id
+        -- Opcional: Filtra para exibir apenas clientes com saldo devedor positivo ou que já tiveram vendas/pagamentos
+        -- Removi a cláusula WHERE/HAVING do PHP para deixar o filtro aqui no SQL, mais eficiente.
+        WHERE
+            (COALESCE(SUM_VENDAS.total_devido, 0) - COALESCE(SUM_PAGAMENTOS.total_pago, 0)) > 0 OR COALESCE(SUM_VENDAS.total_devido, 0) > 0
         ORDER BY
             c.nome ASC
     ";
@@ -47,10 +58,8 @@ try {
 
     if ($result_clientes_com_saldo) {
         while ($row = $result_clientes_com_saldo->fetch_assoc()) {
-            // Apenas adiciona clientes com saldo devedor positivo ou vendas registradas para eles
-            if ($row['saldo_devedor_cliente'] > 0 || $row['total_vendas'] > 0) {
-                $clientes_com_saldo[] = $row;
-            }
+            // A lógica de filtragem foi movida para o SQL (cláusula WHERE/HAVING)
+            $clientes_com_saldo[] = $row;
         }
     } else {
         throw new Exception("Erro ao buscar clientes com saldo: " . $conn->error);
@@ -135,13 +144,13 @@ if (isset($_GET['success'])) {
                         <a class="nav-link" href="../clients/list_clients.php">Listar Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../sales/create_sales.php">Gerenciar Vendas</a>
+                        <a class="nav-link" href="../sales/create_sales.php">Registrar Venda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../sales/list_sales.php">Histórico de Vendas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Gerenciar Pagamentos</a>
+                        <a class="nav-link active" aria-current="page" href="./create_payments.php">Gerenciar Pagamentos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-danger btn-sm ms-lg-3 px-3 rounded-pill" href="../../logout.php">Sair</a>
