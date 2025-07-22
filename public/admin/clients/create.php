@@ -153,7 +153,6 @@ if (isset($_GET['success'])) {
 
                             <div class="d-flex justify-content-between mt-5">
                                 <button type="submit" class="btn btn-primary btn-lg rounded-pill px-4">Cadastrar Cliente</button>
-                                <a href="../dashboard.php" class="btn btn-outline-secondary btn-lg rounded-pill px-4">Voltar para o Dashboard Admin</a>
                             </div>
                         </form>
                     </div>
